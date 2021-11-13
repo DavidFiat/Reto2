@@ -10,12 +10,12 @@ public class Pokemon {
     private int velocity;
     private int life;
     private long date;
-    private String uri;
+    private String url;
 
     public Pokemon() {
     }
 
-    public Pokemon(String id, String name, String type, int defense, int attack, int velocity, int life, long date, String uri) {
+    public Pokemon(String id, String name, String type, int defense, int attack, int velocity, int life, long date, String url) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -24,7 +24,7 @@ public class Pokemon {
         this.velocity = velocity;
         this.life = life;
         this.date = date;
-        this.uri = uri;
+        this.url = url;
     }
 
     public String getId() {
@@ -91,11 +91,11 @@ public class Pokemon {
         this.date = date;
     }
 
-    public String getUri() {
-        return uri;
+    public String getUrl() {
+        return url;
     }
 
     public void setUri(String uri) {
-        this.uri = uri;
+        this.url = url;
     }
 }

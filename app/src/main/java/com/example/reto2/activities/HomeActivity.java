@@ -10,9 +10,13 @@ import com.example.reto2.model.User;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.util.Log;
+import android.widget.ImageView;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements PokemonAdapter.SetPokemonImagen {
 
     private User user;
 
@@ -26,7 +30,8 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         user = (User) getIntent().getExtras().get("user");
-
+        adapter = new PokemonAdapter();
+        adapter.setListener(this);
         pokemonsRecycler = findViewById(R.id.pokemonsRecycler);
         manager = new LinearLayoutManager(this);
         pokemonsRecycler.setLayoutManager(manager);
@@ -39,6 +44,15 @@ public class HomeActivity extends AppCompatActivity {
                         Pokemon pokemon = doc.toObject(Pokemon.class);
                         adapter.addPokemon(pokemon);
                     }
+                }
+        );
+    }
+
+    @Override
+    public void setPokemonImagen(Bitmap imagen, ImageView foto) {
+        runOnUiThread(
+                ()->{
+                    foto.setImageBitmap(imagen);
                 }
         );
     }
