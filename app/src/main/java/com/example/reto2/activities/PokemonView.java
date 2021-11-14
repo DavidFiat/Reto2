@@ -1,5 +1,6 @@
 package com.example.reto2.activities;
 
+import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -15,15 +16,15 @@ public class PokemonView extends RecyclerView.ViewHolder{
 
     private Pokemon pokemon;
 
-    private ImageView imagePokemon;
+    private ImageButton imagePokemon;
     private TextView namePokemon;
-    private ImageButton stadisticsBtn;
+    private View itemView;
 
     public PokemonView(@NonNull View itemView) {
         super(itemView);
+        this.itemView = itemView;
         imagePokemon = itemView.findViewById(R.id.imagePokemon);
         namePokemon = itemView.findViewById(R.id.namePokemon);
-        stadisticsBtn = itemView.findViewById(R.id.stadisticsBtn);
     }
 
     public Pokemon getPokemon() {
@@ -34,11 +35,11 @@ public class PokemonView extends RecyclerView.ViewHolder{
         this.pokemon = pokemon;
     }
 
-    public ImageView getImagePokemon() {
+    public ImageButton getImagePokemon() {
         return imagePokemon;
     }
 
-    public void setImagePokemon(ImageView imagePokemon) {
+    public void setImagePokemon(ImageButton imagePokemon) {
         this.imagePokemon = imagePokemon;
     }
 
@@ -48,13 +49,5 @@ public class PokemonView extends RecyclerView.ViewHolder{
 
     public void setNamePokemon(TextView namePokemon) {
         this.namePokemon = namePokemon;
-    }
-
-    public ImageButton getStadisticsBtn() {
-        return stadisticsBtn;
-    }
-
-    public void setStadisticsBtn(ImageButton stadisticsBtn) {
-        this.stadisticsBtn = stadisticsBtn;
     }
 }
