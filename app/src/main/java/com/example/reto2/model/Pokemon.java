@@ -98,4 +98,19 @@ public class Pokemon {
     public void setUri(String uri) {
         this.uri = uri;
     }
+
+    @Override
+    public String toString() {
+        return "Pokemon{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", defense=" + defense +
+                ", attack=" + attack +
+                ", velocity=" + velocity +
+                ", life=" + life +
+                ", date=" + date +
+                ", uri='" + uri + '\'' +
+                '}';
+    }
 }
