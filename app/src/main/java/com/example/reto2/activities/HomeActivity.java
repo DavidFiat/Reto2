@@ -11,11 +11,9 @@ import com.example.reto2.pokemon.PokemonApi;
 import com.example.reto2.util.HTTPSWebUtilDomi;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.gson.Gson;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
-<<<<<<< HEAD
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -24,11 +22,9 @@ import android.widget.Toast;
 
 import java.util.Date;
 import java.util.UUID;
-=======
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.widget.ImageView;
->>>>>>> 6351148dad9f14686389090eaba00eae918ab5c2
 
 public class HomeActivity extends AppCompatActivity implements PokemonAdapter.SetPokemonImagen {
 
@@ -52,7 +48,6 @@ public class HomeActivity extends AppCompatActivity implements PokemonAdapter.Se
         setContentView(R.layout.activity_home);
 
         user = (User) getIntent().getExtras().get("user");
-<<<<<<< HEAD
 
 
         atraparET = findViewById(R.id.atraparET);
@@ -63,10 +58,8 @@ public class HomeActivity extends AppCompatActivity implements PokemonAdapter.Se
         adapter = new PokemonAdapter();
 
 
-=======
         adapter = new PokemonAdapter();
         adapter.setListener(this);
->>>>>>> 6351148dad9f14686389090eaba00eae918ab5c2
         pokemonsRecycler = findViewById(R.id.pokemonsRecycler);
         manager = new LinearLayoutManager(this);
         pokemonsRecycler.setLayoutManager(manager);
@@ -90,7 +83,6 @@ public class HomeActivity extends AppCompatActivity implements PokemonAdapter.Se
         );
     }
 
-<<<<<<< HEAD
 
     private void atraparPokemon(View view) {
         String namePoke = atraparET.getText().toString();
@@ -134,10 +126,7 @@ public class HomeActivity extends AppCompatActivity implements PokemonAdapter.Se
 
         }
 
-}
 
-
-=======
     @Override
     public void setPokemonImagen(Bitmap imagen, ImageView foto) {
         runOnUiThread(
@@ -147,4 +136,3 @@ public class HomeActivity extends AppCompatActivity implements PokemonAdapter.Se
         );
     }
 }
->>>>>>> 6351148dad9f14686389090eaba00eae918ab5c2

@@ -110,7 +110,7 @@ public class Pokemon {
                 ", velocity=" + velocity +
                 ", life=" + life +
                 ", date=" + date +
-                ", uri='" + uri + '\'' +
+                ", uri='" + url + '\'' +
                 '}';
     }
 }
