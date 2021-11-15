@@ -64,6 +64,16 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonView>{
         notifyItemInserted(pokemons.size()-1);
     }
 
+    public void removePokemons(){
+
+        notifyItemRangeRemoved(0,pokemons.size());
+        pokemons.clear();
+
+
+    }
+
+
+
     private Bitmap descargarImagen (String imageHttpAddress){
         URL imageUrl = null;
         Bitmap imagen = null;
@@ -80,5 +90,9 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonView>{
 
     public interface SetPokemonImagen{
         public void setPokemonImagen(Bitmap imagen, ImageView foto);
+    }
+
+    public ArrayList<Pokemon> getPokemons() {
+        return pokemons;
     }
 }

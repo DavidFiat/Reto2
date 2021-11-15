@@ -95,7 +95,7 @@ public class Pokemon {
         return url;
     }
 
-    public void setUri(String uri) {
+    public void setUrl(String url) {
         this.url = url;
     }
 
@@ -110,7 +110,7 @@ public class Pokemon {
                 ", velocity=" + velocity +
                 ", life=" + life +
                 ", date=" + date +
-                ", uri='" + uri + '\'' +
+                ", uri='" + url + '\'' +
                 '}';
     }
 }
