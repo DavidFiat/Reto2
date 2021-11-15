@@ -17,6 +17,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -75,6 +77,28 @@ public class HomeActivity extends AppCompatActivity implements PokemonAdapter.Se
         atraparBtn.setOnClickListener(this::atraparPokemon);
         buscarBtn.setOnClickListener(this::buscarPokemon);
 
+        buscarET.addTextChangedListener(
+                new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+                        if (editable.toString().equals("")) {
+                            adapter.removePokemons();
+                            getMyPokemons();
+                        }
+                    }
+                }
+        );
+
 
     }
 
@@ -127,6 +151,7 @@ public class HomeActivity extends AppCompatActivity implements PokemonAdapter.Se
 
                 }
         ).start();
+
     }
 
 
@@ -142,7 +167,6 @@ public class HomeActivity extends AppCompatActivity implements PokemonAdapter.Se
     private void buscarPokemon(View view) {
         String namePoke = buscarET.getText().toString();
         String userID = user.getId();
-        buscarET.setText("");
         FirebaseFirestore.getInstance().collection("users").document(userID).collection("pokemones").whereEqualTo("name", namePoke).get().addOnCompleteListener(
                 task -> {
                     if (task.getResult().size() == 0) {
