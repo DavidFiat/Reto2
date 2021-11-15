@@ -11,9 +11,12 @@ import com.example.reto2.pokemon.PokemonApi;
 import com.example.reto2.util.HTTPSWebUtilDomi;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.Gson;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +25,7 @@ import android.widget.Toast;
 
 import java.util.Date;
 import java.util.UUID;
+
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.widget.ImageView;
@@ -50,12 +54,14 @@ public class HomeActivity extends AppCompatActivity implements PokemonAdapter.Se
         user = (User) getIntent().getExtras().get("user");
 
 
+
         atraparET = findViewById(R.id.atraparET);
         atraparBtn = findViewById(R.id.atraparBtn);
         buscarET = findViewById(R.id.buscarET);
         buscarBtn = findViewById(R.id.buscarBtn);
 
         adapter = new PokemonAdapter();
+
 
 
         adapter = new PokemonAdapter();
@@ -67,15 +73,24 @@ public class HomeActivity extends AppCompatActivity implements PokemonAdapter.Se
         pokemonsRecycler.setHasFixedSize(true);
         getMyPokemons();
         atraparBtn.setOnClickListener(this::atraparPokemon);
+        buscarBtn.setOnClickListener(this::buscarPokemon);
 
 
     }
 
+    @Override
+    public void setPokemonImagen(Bitmap imagen, ImageView foto) {
+        runOnUiThread(
+                () -> {
+                    foto.setImageBitmap(imagen);
+                }
+        );
+    }
 
-    public void getMyPokemons(){
-        FirebaseFirestore.getInstance().collection("users").document(user.getId()).collection("pokemons").orderBy("date").get().addOnCompleteListener(
-                task ->{
-                    for(DocumentSnapshot doc : task.getResult()){
+    public void getMyPokemons() {
+        FirebaseFirestore.getInstance().collection("users").document(user.getId()).collection("pokemones").orderBy("date").get().addOnCompleteListener(
+                task -> {
+                    for (DocumentSnapshot doc : task.getResult()) {
                         Pokemon pokemon = doc.toObject(Pokemon.class);
                         adapter.addPokemon(pokemon);
                     }
@@ -83,56 +98,80 @@ public class HomeActivity extends AppCompatActivity implements PokemonAdapter.Se
         );
     }
 
-
     private void atraparPokemon(View view) {
         String namePoke = atraparET.getText().toString();
-                                new Thread(
-                                        ()->{
-                                            HTTPSWebUtilDomi httpsWebUtilDomi = new HTTPSWebUtilDomi();
-                                            String json =  httpsWebUtilDomi.GETrequest("https://pokeapi.co/api/v2/pokemon/"+namePoke);
-                                            Gson gson = new Gson();
-                                            PokemonApi pokemonApi= gson.fromJson(json, PokemonApi.class);
-                                            int defense =pokemonApi.getStats()[2].getBase_stat();
-                                            int attack= pokemonApi.getStats()[1].getBase_stat();
-                                            int velocity = pokemonApi.getStats()[5].getBase_stat();
-                                            int life = pokemonApi.getStats()[0].getBase_stat();
-                                            String img = pokemonApi.getSprites().getBack_default();
-                                            Pokemon pokemon = new Pokemon(UUID.randomUUID().toString(),pokemonApi.getName()," ",defense,attack,velocity,life,new Date().getTime(),img);
-                                            addPokemon(pokemon);
-                                            Log.e(">>> ",pokemon.toString());
-
-                                        }
-                                ).start();
-
         atraparET.setText("");
+        new Thread(
+                () -> {
+                    HTTPSWebUtilDomi httpsWebUtilDomi = new HTTPSWebUtilDomi();
+                    String json = httpsWebUtilDomi.GETrequest("https://pokeapi.co/api/v2/pokemon/" + namePoke);
+                    if (json.isEmpty() == false) {
+                        Gson gson = new Gson();
+                        PokemonApi pokemonApi = gson.fromJson(json, PokemonApi.class);
+                        String type = pokemonApi.getTypes()[0].getType().getName();
+                        int defense = pokemonApi.getStats()[2].getBase_stat();
+                        int attack = pokemonApi.getStats()[1].getBase_stat();
+                        int velocity = pokemonApi.getStats()[5].getBase_stat();
+                        int life = pokemonApi.getStats()[0].getBase_stat();
+                        String img = pokemonApi.getSprites().getBack_default();
+                        Pokemon pokemon = new Pokemon(UUID.randomUUID().toString(), pokemonApi.getName(), type, defense, attack, velocity, life, new Date().getTime(), img);
+                        addPokemon(pokemon);
+                    } else {
+                        runOnUiThread(
+                                () -> {
+                                    Toast.makeText(this, "El pokemon: " + namePoke + " no existe", Toast.LENGTH_LONG).show();
+                                }
+                        );
 
-                            }
-
-
-
-        public void addPokemon (Pokemon pokemon  ){
-
-            //FirebaseFirestore.getInstance().collection("users").document(user.getId()).collection("pokemones").document(pokemon.getId()).set(pokemon);
-
-            runOnUiThread(
-
-                    ()->{
-                        adapter.addPokemon(pokemon);
                     }
-            );
+
+                }
+        ).start();
+    }
 
 
-
-
-        }
-
-
-    @Override
-    public void setPokemonImagen(Bitmap imagen, ImageView foto) {
+    public void addPokemon(Pokemon pokemon) {
+        FirebaseFirestore.getInstance().collection("users").document(user.getId()).collection("pokemones").document(pokemon.getId()).set(pokemon);
         runOnUiThread(
-                ()->{
-                    foto.setImageBitmap(imagen);
+                () -> {
+                    adapter.addPokemon(pokemon);
                 }
         );
     }
+
+    private void buscarPokemon(View view) {
+        String namePoke = buscarET.getText().toString();
+        String userID = user.getId();
+        buscarET.setText("");
+        FirebaseFirestore.getInstance().collection("users").document(userID).collection("pokemones").whereEqualTo("name", namePoke).get().addOnCompleteListener(
+                task -> {
+                    if (task.getResult().size() == 0) {
+                        runOnUiThread(
+                                () -> {
+                                    Toast.makeText(this, "El pokemon: " + namePoke + " no lo has atrapado!", Toast.LENGTH_LONG).show();
+                                }
+                        );
+                    } else {
+                        runOnUiThread(
+                                () -> {
+                                    adapter.removePokemons();
+                                }
+                        );
+                        for (DocumentSnapshot doc : task.getResult()) {
+                            Pokemon pokemon = doc.toObject(Pokemon.class);
+                            adapter.addPokemon(pokemon);
+                        }
+                    }
+                }
+        );
+    }
+
+
+
 }
+
+
+
+
+
+

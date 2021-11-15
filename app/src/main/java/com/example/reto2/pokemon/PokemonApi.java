@@ -6,6 +6,7 @@ public class PokemonApi {
     private String name;
     private Sprite sprites;
     private Stat[] stats;
+    private TypePokemon[] types;
 
     public PokemonApi() {
     }
@@ -38,5 +39,13 @@ public class PokemonApi {
 
     public void setStats(Stat[] stats) {
         this.stats = stats;
+    }
+
+    public TypePokemon[] getTypes() {
+        return types;
+    }
+
+    public void setTypes(TypePokemon[] types) {
+        this.types = types;
     }
 }

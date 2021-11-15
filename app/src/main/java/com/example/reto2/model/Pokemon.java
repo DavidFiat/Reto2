@@ -95,7 +95,7 @@ public class Pokemon {
         return url;
     }
 
-    public void setUri(String uri) {
+    public void setUrl(String url) {
         this.url = url;
     }
 
