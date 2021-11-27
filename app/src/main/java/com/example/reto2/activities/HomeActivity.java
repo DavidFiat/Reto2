@@ -1,5 +1,6 @@
 package com.example.reto2.activities;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Editable;
@@ -26,7 +27,7 @@ import com.google.gson.Gson;
 import java.util.Date;
 import java.util.UUID;
 
-public class HomeActivity extends AppCompatActivity implements PokemonAdapter.SetPokemonImagen {
+public class HomeActivity extends AppCompatActivity implements PokemonAdapter.SetPokemonImagen, PokemonAdapter.SetPokemonData {
 
     private User user;
 
@@ -46,22 +47,15 @@ public class HomeActivity extends AppCompatActivity implements PokemonAdapter.Se
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
         user = (User) getIntent().getExtras().get("user");
-
-
-
         atraparET = findViewById(R.id.atraparET);
         atraparBtn = findViewById(R.id.atraparBtn);
         buscarET = findViewById(R.id.buscarET);
         buscarBtn = findViewById(R.id.buscarBtn);
-
         adapter = new PokemonAdapter();
-
-
-
         adapter = new PokemonAdapter();
         adapter.setListener(this);
+        adapter.setListenerImg(this);
         pokemonsRecycler = findViewById(R.id.pokemonsRecycler);
         manager = new LinearLayoutManager(this);
         pokemonsRecycler.setLayoutManager(manager);
@@ -70,19 +64,14 @@ public class HomeActivity extends AppCompatActivity implements PokemonAdapter.Se
         getMyPokemons();
         atraparBtn.setOnClickListener(this::atraparPokemon);
         buscarBtn.setOnClickListener(this::buscarPokemon);
-
         buscarET.addTextChangedListener(
                 new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
                     }
-
                     @Override
                     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
                     }
-
                     @Override
                     public void afterTextChanged(Editable editable) {
                         if (editable.toString().equals("")) {
@@ -94,6 +83,13 @@ public class HomeActivity extends AppCompatActivity implements PokemonAdapter.Se
         );
 
 
+    }
+    @Override
+    public void goToPokemon(Pokemon pokemon) {
+        Intent i = new Intent(this, PokemonData.class);
+        i.putExtra("user",pokemon.getUser());
+        i.putExtra("pokemon",pokemon.getName());
+        startActivity(i);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.example.reto2.activities;
 
-import android.content.Intent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -24,14 +23,9 @@ public class PokemonView extends RecyclerView.ViewHolder{
         this.itemView = itemView;
         imagePokemon = itemView.findViewById(R.id.imagePokemon);
         namePokemon = itemView.findViewById(R.id.namePokemon);
-        imagePokemon.setOnClickListener(this::goToPokemon);
     }
 
-    private void goToPokemon(View view) {
-        Intent intent = new Intent(itemView.getContext(),PokemonData.class);
-        intent.putExtra("pokemon",namePokemon.getText().toString());
-        startActivity(intent);
-    }
+
 
 
 
