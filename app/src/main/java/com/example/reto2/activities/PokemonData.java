@@ -62,9 +62,10 @@ public class PokemonData extends AppCompatActivity {
 
         releaseButton.setOnClickListener(
                 v -> {
-                    FirebaseFirestore.getInstance().collection("users").document(user.getId()).collection("pokemones").document(pokemon.getId()).set(null);
+                    FirebaseFirestore.getInstance().collection("users").document(user.getId()).collection("pokemones").document(pokemon.getId()).delete();
                 }
         );
+
 
 
     }
