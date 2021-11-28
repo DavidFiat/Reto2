@@ -87,7 +87,7 @@ public class HomeActivity extends AppCompatActivity implements PokemonAdapter.Se
     @Override
     public void goToPokemon(Pokemon pokemon) {
         Intent i = new Intent(this, PokemonData.class);
-        i.putExtra("user",pokemon.getUser());
+        i.putExtra("user",user);
         i.putExtra("pokemon",pokemon.getName());
         startActivity(i);
     }
