@@ -89,6 +89,7 @@ public class HomeActivity extends AppCompatActivity implements PokemonAdapter.Se
     protected void onResume() {
         super.onResume();
         adapter.removePokemons();
+        getMyPokemons();
     }
 
     @Override
