@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/david/Desktop/Universidad/Academico/Apps/Reto2/app/src/main/res/layout/activity_home.xml" value="0.25" />
         <entry key="..\:/Users/david/Desktop/Universidad/Academico/Apps/Reto2/app/src/main/res/layout/activity_pokemon_data.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/david/Desktop/Universidad/Academico/Apps/Reto2/app/src/main/res/layout/pokemonrow.xml" value="0.25" />
         <entry key="..\:/Users/manue/Documents/AplicacionesMoviles/Reto2/app/src/main/res/layout/activity_home.xml" value="0.22" />
         <entry key="..\:/Users/manue/Documents/AplicacionesMoviles/Reto2/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/manue/Documents/AplicacionesMoviles/Reto2/app/src/main/res/layout/pokemonrow.xml" value="0.22" />
