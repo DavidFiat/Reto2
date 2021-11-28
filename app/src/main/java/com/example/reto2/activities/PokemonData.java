@@ -31,6 +31,7 @@ public class PokemonData extends AppCompatActivity {
     private User user;
     private Pokemon pokemon;
     private ImageView imageView;
+    private Bitmap image;
 
 
     @Override
@@ -41,7 +42,11 @@ public class PokemonData extends AppCompatActivity {
         pokemon = (Pokemon) getIntent().getExtras().get("pokemon");
         releaseButton = findViewById(R.id.releaseButton);
         imageView = findViewById(R.id.imageView);
-        setImage();
+        new Thread(
+                ()->{
+                    setImage();
+                }
+        ).start();
         name = findViewById(R.id.name);
         type = findViewById(R.id.type);
         defensaData = findViewById(R.id.defensaData);
@@ -50,10 +55,10 @@ public class PokemonData extends AppCompatActivity {
         vidaData = findViewById(R.id.vidaData);
         name.setText(pokemon.getName());
         type.setText(pokemon.getType());
-        defensaData.setText(pokemon.getDefense());
-        ataqueData.setText(pokemon.getAttack());
-        velocidadData.setText(pokemon.getVelocity());
-        vidaData.setText(pokemon.getLife());
+        defensaData.setText(pokemon.getDefense()+"");
+        ataqueData.setText(pokemon.getAttack()+"");
+        velocidadData.setText(pokemon.getVelocity()+"");
+        vidaData.setText(pokemon.getLife()+"");
 
         releaseButton.setOnClickListener(
                 v -> {
@@ -65,7 +70,6 @@ public class PokemonData extends AppCompatActivity {
     }
 
     private void setImage() {
-        Bitmap image = null;
         try {
             URL imageUrl = new URL(pokemon.getUrl());
             HttpURLConnection conn = (HttpURLConnection) imageUrl.openConnection();
@@ -76,7 +80,10 @@ public class PokemonData extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        imageView.setImageBitmap(image);
+        runOnUiThread(
+                ()->{
+                    imageView.setImageBitmap(image);
+                }
+        );
     }
 }

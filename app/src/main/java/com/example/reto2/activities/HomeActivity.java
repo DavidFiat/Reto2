@@ -88,7 +88,7 @@ public class HomeActivity extends AppCompatActivity implements PokemonAdapter.Se
     public void goToPokemon(Pokemon pokemon) {
         Intent i = new Intent(this, PokemonData.class);
         i.putExtra("user",user);
-        i.putExtra("pokemon",pokemon.getName());
+        i.putExtra("pokemon",pokemon);
         startActivity(i);
     }
 
@@ -179,13 +179,4 @@ public class HomeActivity extends AppCompatActivity implements PokemonAdapter.Se
                 }
         );
     }
-
-
-
 }
-
-
-
-
-
-
