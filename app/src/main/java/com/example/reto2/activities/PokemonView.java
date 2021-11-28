@@ -1,9 +1,7 @@
 package com.example.reto2.activities;
 
-import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,6 +24,10 @@ public class PokemonView extends RecyclerView.ViewHolder{
         imagePokemon = itemView.findViewById(R.id.imagePokemon);
         namePokemon = itemView.findViewById(R.id.namePokemon);
     }
+
+
+
+
 
     public Pokemon getPokemon() {
         return pokemon;

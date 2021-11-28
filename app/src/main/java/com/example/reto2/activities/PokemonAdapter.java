@@ -2,8 +2,6 @@ package com.example.reto2.activities;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +22,7 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonView>{
 
     private ArrayList<Pokemon> pokemons;
     private SetPokemonImagen listener;
+    private SetPokemonData listenerImg;
 
     public PokemonAdapter(){
         pokemons = new ArrayList<>();
@@ -31,6 +30,10 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonView>{
 
     public void setListener(SetPokemonImagen listener) {
         this.listener = listener;
+    }
+
+    public void setListenerImg(SetPokemonData listenerImg){
+        this.listenerImg = listenerImg;
     }
 
     @NonNull
@@ -52,6 +55,11 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonView>{
                 }
         ).start();
         holder.getNamePokemon().setText(pokemon.getName());
+        holder.getImagePokemon().setOnClickListener(
+                v->{
+                    listenerImg.goToPokemon(pokemon);
+                }
+        );
     }
 
     @Override
@@ -90,6 +98,10 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonView>{
 
     public interface SetPokemonImagen{
         public void setPokemonImagen(Bitmap imagen, ImageView foto);
+    }
+
+    public interface SetPokemonData{
+        public void goToPokemon(Pokemon pokemon);
     }
 
     public ArrayList<Pokemon> getPokemons() {
