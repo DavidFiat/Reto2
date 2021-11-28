@@ -25,14 +25,6 @@ public class PokemonApi {
         this.name = name;
     }
 
-    public Sprite getSprites() {
-        return sprites;
-    }
-
-    public void setSprites(Sprite sprites) {
-        this.sprites = sprites;
-    }
-
     public Stat[] getStats() {
         return stats;
     }
@@ -47,5 +39,13 @@ public class PokemonApi {
 
     public void setTypes(TypePokemon[] types) {
         this.types = types;
+    }
+
+    public Sprite getSprites() {
+        return sprites;
+    }
+
+    public void setSprites(Sprite sprites) {
+        this.sprites = sprites;
     }
 }

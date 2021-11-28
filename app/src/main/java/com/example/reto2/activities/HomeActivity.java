@@ -127,7 +127,7 @@ public class HomeActivity extends AppCompatActivity implements PokemonAdapter.Se
                         int attack = pokemonApi.getStats()[1].getBase_stat();
                         int velocity = pokemonApi.getStats()[5].getBase_stat();
                         int life = pokemonApi.getStats()[0].getBase_stat();
-                        String img = pokemonApi.getSprites().getBack_default();
+                        String img = pokemonApi.getSprites().getFront_default();
                         Pokemon pokemon = new Pokemon(UUID.randomUUID().toString(), pokemonApi.getName(), type, defense, attack, velocity, life, new Date().getTime(), img);
                         addPokemon(pokemon);
                     } else {
