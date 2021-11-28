@@ -1,6 +1,5 @@
 package com.example.reto2.activities;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -64,11 +63,10 @@ public class PokemonData extends AppCompatActivity {
         releaseButton.setOnClickListener(
                 v -> {
                     FirebaseFirestore.getInstance().collection("users").document(user.getId()).collection("pokemones").document(pokemon.getId()).delete();
-                    Intent i = new Intent(this, HomeActivity.class);
-                    i.putExtra("user", user);
-                    startActivity(i);
+                    finish();
                 }
         );
+
 
 
     }

@@ -84,6 +84,13 @@ public class HomeActivity extends AppCompatActivity implements PokemonAdapter.Se
 
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.removePokemons();
+    }
+
     @Override
     public void goToPokemon(Pokemon pokemon) {
         Intent i = new Intent(this, PokemonData.class);
